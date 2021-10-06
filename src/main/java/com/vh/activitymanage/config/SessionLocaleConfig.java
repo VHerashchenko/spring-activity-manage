@@ -24,7 +24,6 @@ public class SessionLocaleConfig implements WebMvcConfigurer {
 
     @Bean
     public LocaleResolver localeResolver() {
-        SessionLocaleResolver resolver = new SessionLocaleResolver();
-        return resolver;
+        return  new SessionLocaleResolver();
     }
 }

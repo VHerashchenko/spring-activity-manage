@@ -1,6 +1,7 @@
 package com.vh.activitymanage.service.impl;
 
 import com.vh.activitymanage.service.SecurityService;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,25 +13,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class SecurityServiceImpl implements SecurityService {
     private static final Logger logger = LoggerFactory.getLogger(SecurityServiceImpl.class);
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
-
-    @Autowired
-    public SecurityServiceImpl(AuthenticationManager authenticationManager, UserDetailsService userDetailsService) {
-        this.authenticationManager = authenticationManager;
-        this.userDetailsService = userDetailsService;
-    }
-
-    @Override
-    public String findLoggedInUsername() {
-        Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
-        if (userDetails instanceof UserDetails) {
-            return ((UserDetails) userDetails).getUsername();
-        }
-        return null;
-    }
 
     @Override
     public void autoLogin(String username, String password) {
