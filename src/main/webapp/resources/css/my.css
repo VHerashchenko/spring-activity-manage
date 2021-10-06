@@ -1,0 +1,21 @@
+.table thead th {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.margin-table-view {
+    margin-top: 70px;
+}
+
+.margin-view {
+    margin-top: 40px;
+}
+
+td {
+    text-align: center;
+}
+
+.my-border {
+    padding: 20px;
+    border-width: 5px !important
+}
