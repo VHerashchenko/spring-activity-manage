@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -35,4 +36,7 @@ public class User {
 
     @Transient
     private String passwordConfirm;
+
+    @OneToMany(mappedBy = "user", targetEntity = Activity.class)
+    private List<Activity> activities;
 }
