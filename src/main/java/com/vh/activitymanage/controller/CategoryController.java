@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,6 +28,7 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('write')")
     public String getCategoryById(@PathVariable Long id, Model model){
         log.debug("getCategory by id");
 
@@ -38,6 +40,7 @@ public class CategoryController {
     }
 
     @GetMapping("/create")
+    @PreAuthorize("hasAuthority('write')")
     public String createCategory(Model model){
         log.debug("createCategory getMapping start");
 
@@ -47,6 +50,7 @@ public class CategoryController {
     }
 
     @PostMapping("/create")
+    @PreAuthorize("hasAuthority('write')")
     public String createCategory(@ModelAttribute("category") CategoryDTO categoryDTO, BindingResult bindingResult){
         log.debug("createCategory PostMapping");
 
@@ -58,6 +62,7 @@ public class CategoryController {
     }
 
     @PostMapping("/edit")
+    @PreAuthorize("hasAuthority('write')")
     public String edit(@ModelAttribute("category") CategoryDTO categoryDTO, Model model) {
         log.debug("editCategory Post");
 
@@ -65,6 +70,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('write')")
     public String deleteCategoryById(@PathVariable Long id){
         log.debug("deleteCategory DeleteMapping");
 
@@ -74,6 +80,7 @@ public class CategoryController {
     }
 
     @GetMapping("/all")
+    @PreAuthorize("hasAuthority('write')")
     public String getAllCategories(Model model){
         log.debug("getAllCategories GetMapping");
 
