@@ -38,7 +38,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="${contextPath}/all-notes"><fmt:message key="notes.page" /> <span class="sr-only"></span></a>
+                <a class="nav-link" href="${contextPath}/category/all"><fmt:message key="category.page" /> <span class="sr-only"></span></a>
             </li>
             <li class="nav-item dropdown">
                 <div class="btn-group">
