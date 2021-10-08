@@ -12,5 +12,5 @@ public interface ActivityUserService {
 
     void deleteActivityRequestById(Long id);
 
-    List<Activity> findAll();
+    List<Activity> findAllWithCurrentUser();
 }

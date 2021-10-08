@@ -93,7 +93,7 @@ public class ActivityUserController {
     public String getAllCategories(Model model){
         log.debug("getAllActivities GetMapping");
 
-        var activities = activityUserService.findAll();
+        var activities = activityUserService.findAllWithCurrentUser();
 
         model.addAttribute("activities", mapper.map(activities, ACTIVITY_USER_LIST_TYPE));
 

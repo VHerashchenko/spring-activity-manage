@@ -30,7 +30,6 @@ public class ActivityUserServiceImpl implements ActivityUserService {
         return activityUserRepository.save(activity);
     }
 
-
     @Override
     @Transactional
     public void deleteActivityRequestById(Long id) {
@@ -38,7 +37,8 @@ public class ActivityUserServiceImpl implements ActivityUserService {
     }
 
     @Override
-    public List<Activity> findAll() {
-        return activityUserRepository.findAll();
+    public List<Activity> findAllWithCurrentUser() {
+        var user = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        return activityUserRepository.findAll(user);
     }
 }

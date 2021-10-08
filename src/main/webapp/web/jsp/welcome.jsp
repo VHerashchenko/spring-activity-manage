@@ -40,6 +40,9 @@
             <li class="nav-item active">
                 <a class="nav-link" href="${contextPath}/category/all"><fmt:message key="category.page" /> <span class="sr-only"></span></a>
             </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="${contextPath}/activity/all"><fmt:message key="activity.page" /> <span class="sr-only"></span></a>
+            </li>
             <li class="nav-item dropdown">
                 <div class="btn-group">
                     <button type="button" class="btn"><fmt:message key="locale" /></button>
