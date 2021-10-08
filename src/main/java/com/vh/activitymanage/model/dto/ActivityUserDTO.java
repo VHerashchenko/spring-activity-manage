@@ -20,6 +20,11 @@ public class ActivityUserDTO {
 
     private ActivityStatus status;
 
-    private UserDTO userDTO;
-    private CategoryDTO categoryDTO;
+    private UserDTO user;
+    private CategoryDTO category;
+
+    public ActivityUserDTO(UserDTO user, CategoryDTO category){
+        this.user = user;
+        this.category = category;
+    }
 }

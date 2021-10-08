@@ -21,26 +21,14 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @RequestMapping("/category")
+@PreAuthorize("hasAuthority('write')")
 public class CategoryController {
     private static final Type CATEGORY_LIST_TYPE = (new TypeToken<List<CategoryDTO>>(){}).getType();
 
     private final ModelMapper mapper;
     private final CategoryService categoryService;
 
-    @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('write')")
-    public String getCategoryById(@PathVariable Long id, Model model){
-        log.debug("getCategory by id");
-
-        var category = categoryService.getCategoryById(id);
-
-        model.addAttribute("category", mapper.map(category, CategoryDTO.class));
-
-        return "category/categoryView";
-    }
-
     @GetMapping("/create")
-    @PreAuthorize("hasAuthority('write')")
     public String createCategory(Model model){
         log.debug("createCategory getMapping start");
 
@@ -49,28 +37,29 @@ public class CategoryController {
         return "category/categoryCreation";
     }
 
-    @PostMapping("/create")
-    @PreAuthorize("hasAuthority('write')")
-    public String createCategory(@ModelAttribute("category") CategoryDTO categoryDTO, BindingResult bindingResult){
-        log.debug("createCategory PostMapping");
+    @PostMapping("/update")
+    public String updateCategory(@ModelAttribute("category") CategoryDTO categoryDTO){
+        log.debug("updateCategory PostMapping");
 
         var category = mapper.map(categoryDTO, Category.class);
 
         categoryService.saveCategory(category);
 
-        return "redirect:/category/" + category.getId();
+        return "redirect:/category/all";
     }
 
-    @PostMapping("/edit")
-    @PreAuthorize("hasAuthority('write')")
-    public String edit(@ModelAttribute("category") CategoryDTO categoryDTO, Model model) {
+    @GetMapping("/{id}/edit")
+    public String edit(@ModelAttribute("category") CategoryDTO categoryDTO, @PathVariable Long id, Model model) {
         log.debug("editCategory Post");
 
-        return createCategory(model);
+        var category = categoryService.getCategoryById(id);
+
+        model.addAttribute("category", mapper.map(category, CategoryDTO.class));
+
+        return "category/categoryCreation";
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('write')")
     public String deleteCategoryById(@PathVariable Long id){
         log.debug("deleteCategory DeleteMapping");
 
@@ -80,7 +69,6 @@ public class CategoryController {
     }
 
     @GetMapping("/all")
-    @PreAuthorize("hasAuthority('write')")
     public String getAllCategories(Model model){
         log.debug("getAllCategories GetMapping");
 

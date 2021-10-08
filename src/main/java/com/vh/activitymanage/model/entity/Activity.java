@@ -28,11 +28,11 @@ public class Activity {
     @Enumerated(value = EnumType.STRING)
     private ActivityStatus status;
 
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 }

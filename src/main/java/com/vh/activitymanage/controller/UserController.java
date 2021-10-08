@@ -73,9 +73,4 @@ public class UserController {
 
         return "registration/login";
     }
-
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity handleRuntimeException(RuntimeException ex) {
-        return new ResponseEntity(HttpStatus.BAD_REQUEST);
-    }
 }

@@ -13,7 +13,7 @@
 <html lang="${param.lang}">
 <head>
     <meta charset="utf-8">
-    <title><fmt:message key="category.page"/></title>
+    <title><fmt:message key="activity.page"/></title>
 
     <link href="${contextPath}/resources/css/bootstrap.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/bootstrap-grid.css" rel="stylesheet">
@@ -34,6 +34,9 @@
             <li class="nav-item active">
                 <a class="nav-link" href="${contextPath}/category/all"><fmt:message key="category.page" /> <span class="sr-only"></span></a>
             </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="${contextPath}/activity/all"><fmt:message key="activity.page" /> <span class="sr-only"></span></a>
+            </li>
             <li class="nav-item dropdown">
                 <div class="btn-group">
                     <button type="button" class="btn"><fmt:message key="locale" /></button>
@@ -41,8 +44,8 @@
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="${contextPath}/category/all/?lang=en"><fmt:message key="english" /></a>
-                        <a class="dropdown-item" href="${contextPath}/category/all/?lang=ru"><fmt:message key="russian" /></a>
+                        <a class="dropdown-item" href="${contextPath}/activity/all/?lang=en"><fmt:message key="english" /></a>
+                        <a class="dropdown-item" href="${contextPath}/activity/all/?lang=ru"><fmt:message key="russian" /></a>
                     </div>
                 </div>
             </li>
@@ -63,20 +66,26 @@
             <table class="table table-bordered table-hover">
                 <thead class="thead-dark">
                 <tr>
+                    <th><fmt:message key="activity.name"/></th>
+                    <th><fmt:message key="activity.time"/></th>
+                    <th><fmt:message key="activity.status"/></th>
                     <th><fmt:message key="category.name"/></th>
                     <th><fmt:message key="actions"/></th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${categories}" var="categories">
+                <c:forEach items="${activities}" var="activities">
                     <tr>
-                        <td>${categories.name}</td>
+                        <td>${activities.name}</td>
+                        <td>${activities.time}</td>
+                        <td>${activities.status}</td>
+                        <td>${activities.category.name}</td>
                         <td>
-                            <form:form method="GET" action="${contextPath}/category/${categories.id}/edit/"
+                            <form:form method="GET" action="${contextPath}/activity/${activities.id}/edit"
                                        class="form-signin">
                                 <button class="btn btn btn-primary btn-block" type="submit"><fmt:message key="edit"/></button>
                             </form:form>
-                            <form:form method="DELETE" action="${contextPath}/category/${categories.id}"
+                            <form:form method="POST" action="${contextPath}/activity/${activities.id}"
                                    class="form-signin">
                             <button class="btn btn btn-danger btn-block" type="submit"><fmt:message key="delete"/></button>
                             </form:form>
@@ -86,7 +95,7 @@
                 </tbody>
             </table>
         </div>
-        <form:form cssClass="col-2 margin-table-view" method="GET" action="${contextPath}/category/create" class="form-signin">
+        <form:form cssClass="col-2 margin-table-view" method="GET" action="${contextPath}/activity/create" class="form-signin">
             <button class="btn btn btn-success" type="submit"><fmt:message key="create"/></button>
         </form:form>
     </div>
