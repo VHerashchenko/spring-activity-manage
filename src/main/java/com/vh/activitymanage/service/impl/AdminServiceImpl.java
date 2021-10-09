@@ -1,6 +1,7 @@
 package com.vh.activitymanage.service.impl;
 
 import com.vh.activitymanage.model.enums.ActivityStatus;
+import com.vh.activitymanage.model.enums.Role;
 import com.vh.activitymanage.model.enums.UserStatus;
 import com.vh.activitymanage.repository.ActivityAdminRepository;
 import com.vh.activitymanage.repository.UserAdminRepository;
@@ -35,12 +36,12 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void findAllActiveUsers() {
-        userAdminRepository.findAllUsersWithStatus(UserStatus.ACTIVE);
+        userAdminRepository.findAllUsersWithStatus(UserStatus.ACTIVE, Role.USER);
     }
 
     @Override
     public void findAllBannedUsers() {
-        userAdminRepository.findAllUsersWithStatus(UserStatus.BANNED);
+        userAdminRepository.findAllUsersWithStatus(UserStatus.BANNED, Role.USER);
     }
 
     @Override

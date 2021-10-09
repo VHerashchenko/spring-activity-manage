@@ -1,6 +1,7 @@
 package com.vh.activitymanage.repository;
 
 import com.vh.activitymanage.model.entity.User;
+import com.vh.activitymanage.model.enums.Role;
 import com.vh.activitymanage.model.enums.UserStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -15,6 +16,6 @@ public interface UserAdminRepository extends JpaRepository<User, Long> {
     void changeUserStatusById(@Param("id") Long id, @Param("status") UserStatus status);
 
     @Modifying
-    @Query(value = "select u from User u where u.status = :status and u.role = 'USER'")
-    List<User> findAllUsersWithStatus(@Param("status") UserStatus status);
+    @Query(value = "select u from User u where u.status = :status and u.role = :role")
+    List<User> findAllUsersWithStatus(@Param("status") UserStatus status, @Param("role") Role role);
 }
