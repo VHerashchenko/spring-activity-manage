@@ -1,5 +1,7 @@
 package com.vh.activitymanage.service.impl;
 
+import com.vh.activitymanage.model.entity.Activity;
+import com.vh.activitymanage.model.entity.User;
 import com.vh.activitymanage.model.enums.ActivityStatus;
 import com.vh.activitymanage.model.enums.Role;
 import com.vh.activitymanage.model.enums.UserStatus;
@@ -10,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -35,22 +39,22 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void findAllActiveUsers() {
-        userAdminRepository.findAllUsersWithStatus(UserStatus.ACTIVE, Role.USER);
+    public List<User> findAllActiveUsers() {
+        return userAdminRepository.findAllUsersWithStatus(UserStatus.ACTIVE, Role.USER);
     }
 
     @Override
-    public void findAllBannedUsers() {
-        userAdminRepository.findAllUsersWithStatus(UserStatus.BANNED, Role.USER);
+    public List<User> findAllBannedUsers() {
+        return userAdminRepository.findAllUsersWithStatus(UserStatus.BANNED, Role.USER);
     }
 
     @Override
-    public void findAllWaitToActive() {
-        activityAdminRepository.findAllActivityByStatus(ActivityStatus.WAIT_ACTIVE);
+    public List<Activity> findAllWaitToActive() {
+        return activityAdminRepository.findAllActivityByStatus(ActivityStatus.WAIT_ACTIVE);
     }
 
     @Override
-    public void findAllWaitToDelete() {
-        activityAdminRepository.findAllActivityByStatus(ActivityStatus.WAIT_DELETE);
+    public List<Activity> findAllWaitToDelete() {
+        return activityAdminRepository.findAllActivityByStatus(ActivityStatus.WAIT_DELETE);
     }
 }

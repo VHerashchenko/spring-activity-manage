@@ -1,7 +1,11 @@
 package com.vh.activitymanage.service;
 
+import com.vh.activitymanage.model.entity.Activity;
+import com.vh.activitymanage.model.entity.User;
 import com.vh.activitymanage.model.enums.ActivityStatus;
 import com.vh.activitymanage.model.enums.UserStatus;
+
+import java.util.List;
 
 public interface AdminService {
 
@@ -11,11 +15,11 @@ public interface AdminService {
 
     void updateUserStatus(Long id, UserStatus status);
 
-    void findAllActiveUsers();
+    List<User> findAllActiveUsers();
 
-    void findAllBannedUsers();
+    List<User> findAllBannedUsers();
 
-    void findAllWaitToActive();
+    List<Activity> findAllWaitToActive();
 
-    void findAllWaitToDelete();
+    List<Activity> findAllWaitToDelete();
 }
