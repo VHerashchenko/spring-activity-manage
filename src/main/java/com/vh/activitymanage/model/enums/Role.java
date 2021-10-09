@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 @Getter
 @AllArgsConstructor
 public enum Role {
-    SUPER_ADMIN(Set.of(Permission.READ, Permission.WRITE)),
     ADMIN(Set.of(Permission.READ, Permission.WRITE)),
     USER(Set.of(Permission.READ));
 
