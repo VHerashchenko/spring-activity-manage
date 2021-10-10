@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ import java.util.Map;
 @Slf4j
 @Controller
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@PreAuthorize("hasAuthority('write')")
 @RequestMapping("/admin")
 public class AdminController {
     private static final Type ACTIVITY_USER_LIST_TYPE = (new TypeToken<List<ActivityUserDTO>>(){}).getType();
@@ -49,7 +51,7 @@ public class AdminController {
         return "admin/dashboard";
     }
 
-    @PostMapping("/{id}/update-user-active")
+    @PostMapping("/dashboard/{id}/unban")
     public String updateUserStatusToActive(@PathVariable Long id){
         log.debug("UpdateUserTo ACTIVE");
 
@@ -58,7 +60,7 @@ public class AdminController {
         return "redirect:/admin/dashboard";
     }
 
-    @PostMapping("/{id}/update-user-banned")
+    @PostMapping("/dashboard/{id}/ban")
     public String updateUserStatusToBanned(@PathVariable Long id){
         log.debug("UpdateUserTo BANNED");
 
@@ -67,7 +69,7 @@ public class AdminController {
         return "redirect:/admin/dashboard";
     }
 
-    @PostMapping("/{id}/update-activity-active")
+    @PostMapping("/dashboard/{id}/active")
     public String updateActivityStatus(@PathVariable Long id){
         log.debug("Update Activity ACTIVE");
 
@@ -76,7 +78,7 @@ public class AdminController {
         return "redirect:/admin/dashboard";
     }
 
-    @DeleteMapping("/{id}/delete-activity")
+    @DeleteMapping("/dashboard/{id}/delete")
     public String deleteActivity(@PathVariable Long id){
         log.debug("deleteActivity");
 
