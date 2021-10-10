@@ -6,6 +6,7 @@ import com.vh.activitymanage.model.dto.UserDTO;
 import com.vh.activitymanage.model.entity.Activity;
 import com.vh.activitymanage.service.ActivityUserService;
 import com.vh.activitymanage.service.CategoryService;
+import com.vh.activitymanage.validator.BannedUserValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -33,10 +34,15 @@ public class ActivityUserController {
     private final ActivityUserService activityUserService;
     private final CategoryService categoryService;
     private final ConversionService conversionService;
+    private final BannedUserValidator bannedUserValidator;
 
     @GetMapping("/create")
     public String createActivity(Model model){
         log.debug("createActivity getMapping start");
+
+        if(bannedUserValidator.validate()) {
+            return "redirect:/activity/all";
+        }
 
         var categories = categoryService.findAll();
 
@@ -68,6 +74,10 @@ public class ActivityUserController {
     public String edit(@ModelAttribute("activity") ActivityUserDTO activityUserDTO, @PathVariable Long id, Model model) {
         log.debug("editActivity Post");
 
+        if(bannedUserValidator.validate()) {
+            return "redirect:/activity/all";
+        }
+
         var activity = activityUserService.getActivityById(id);
         var categories = categoryService.findAll();
 
@@ -84,6 +94,10 @@ public class ActivityUserController {
     public String deleteRequest(@PathVariable Long id){
         log.debug("deleteRequest");
 
+        if(bannedUserValidator.validate()) {
+            return "redirect:/activity/all";
+        }
+
         activityUserService.deleteActivityRequestById(id);
 
         return "redirect:/activity/all";
@@ -92,6 +106,10 @@ public class ActivityUserController {
     @GetMapping("/all")
     public String getAllCategories(Model model){
         log.debug("getAllActivities GetMapping");
+
+        if(bannedUserValidator.validate()) {
+            model.addAttribute("errorMessage", "banned.user.message");
+        }
 
         var activities = activityUserService.findAllWithCurrentUser();
 

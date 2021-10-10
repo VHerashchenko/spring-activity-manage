@@ -140,6 +140,7 @@
                     <th><fmt:message key="username"/></th>
                     <th><fmt:message key="activity.status"/></th>
                     <th><fmt:message key="username"/></th>
+                    <th><fmt:message key="user.status"/></th>
                     <th><fmt:message key="actions"/></th>
                 </tr>
                 </thead>
@@ -149,6 +150,7 @@
                         <td>${activityWaitToActive.name}</td>
                         <td>${activityWaitToActive.status}</td>
                         <td>${activityWaitToActive.user.username}</td>
+                        <td>${activityWaitToActive.user.status}</td>
                         <td>
                             <form:form method="POST" action="${contextPath}/admin/dashboard/${activityWaitToActive.id}/active"
                                        class="form-signin">
@@ -173,6 +175,7 @@
                     <th><fmt:message key="username"/></th>
                     <th><fmt:message key="activity.status"/></th>
                     <th><fmt:message key="username"/></th>
+                    <th><fmt:message key="user.status"/></th>
                     <th><fmt:message key="actions"/></th>
                 </tr>
                 </thead>
@@ -182,6 +185,7 @@
                         <td>${activityWaitToDelete.name}</td>
                         <td>${activityWaitToDelete.status}</td>
                         <td>${activityWaitToDelete.user.username}</td>
+                        <td>${activityWaitToDelete.user.status}</td>
                         <td>
                             <form:form method="DELETE" action="${contextPath}/admin/dashboard/${activityWaitToDelete.id}/delete"
                                        class="form-signin">
