@@ -72,7 +72,7 @@
                 <thead class="thead-dark">
                 <tr>
                     <th><fmt:message key="username"/></th>
-                    <th><fmt:message key="activity.status"/></th>
+                    <th><fmt:message key="user.status"/></th>
                     <th><fmt:message key="role"/></th>
                     <th><fmt:message key="actions"/></th>
                 </tr>
@@ -105,7 +105,7 @@
                 <thead class="thead-dark">
                 <tr>
                     <th><fmt:message key="username"/></th>
-                    <th><fmt:message key="activity.status"/></th>
+                    <th><fmt:message key="user.status"/></th>
                     <th><fmt:message key="role"/></th>
                     <th><fmt:message key="actions"/></th>
                 </tr>
