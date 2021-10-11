@@ -137,7 +137,7 @@
                 <caption><fmt:message key="admin.wait.active.table"/></caption>
                 <thead class="thead-dark">
                 <tr>
-                    <th><fmt:message key="username"/></th>
+                    <th><fmt:message key="activity.name"/></th>
                     <th><fmt:message key="activity.status"/></th>
                     <th><fmt:message key="username"/></th>
                     <th><fmt:message key="user.status"/></th>
@@ -172,7 +172,7 @@
                 <caption><fmt:message key="admin.wait.delete.table"/></caption>
                 <thead class="thead-dark">
                 <tr>
-                    <th><fmt:message key="username"/></th>
+                    <th><fmt:message key="activity.name"/></th>
                     <th><fmt:message key="activity.status"/></th>
                     <th><fmt:message key="username"/></th>
                     <th><fmt:message key="user.status"/></th>

@@ -18,10 +18,6 @@ public class BannedUserValidator {
         var username = SecurityContextHolder.getContext().getAuthentication().getName();
         var user = userService.findByUsername(username);
 
-        if(user.getStatus().equals(UserStatus.BANNED)){
-            return true;
-        }
-
-        return false;
+        return user.getStatus().equals(UserStatus.BANNED);
     }
 }

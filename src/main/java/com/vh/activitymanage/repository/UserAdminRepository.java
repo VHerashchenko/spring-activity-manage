@@ -15,7 +15,5 @@ public interface UserAdminRepository extends JpaRepository<User, Long> {
     @Query(value = "update User u set u.status = :status where u.id = :id")
     void changeUserStatusById(@Param("id") Long id, @Param("status") UserStatus status);
 
-    @Modifying
-    @Query(value = "select u from User u where u.status = :status and u.role = :role")
-    List<User> findAllUsersWithStatus(@Param("status") UserStatus status, @Param("role") Role role);
+    List<User> findAllUserByRoleAndStatus(@Param("status") Role role, @Param("role") UserStatus status);
 }

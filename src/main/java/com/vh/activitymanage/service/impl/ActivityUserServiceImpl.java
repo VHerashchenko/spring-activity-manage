@@ -38,7 +38,7 @@ public class ActivityUserServiceImpl implements ActivityUserService {
 
     @Override
     public List<Activity> findAllWithCurrentUser() {
-        var user = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        return activityUserRepository.findAll(user);
+        var username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return activityUserRepository.findAllByUserUsername(username);
     }
 }
