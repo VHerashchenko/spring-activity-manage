@@ -98,6 +98,16 @@
     </div>
 </div>
 
+<% if(null != request.getAttribute("error")){ %>
+<div class="container">
+    <div class="row">
+        <div class="form-group has-error align-content-center">
+            <span class="align-content-center"><fmt:message key="${error}"/></span>
+        </div>
+    </div>
+</div>
+<%} %>
+
 <script src="${contextPath}/resources/js/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.js"></script>
 </body>

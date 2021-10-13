@@ -3,6 +3,7 @@ package com.vh.activitymanage.controller;
 import com.vh.activitymanage.model.dto.CategoryDTO;
 import com.vh.activitymanage.model.entity.Category;
 import com.vh.activitymanage.service.CategoryService;
+import com.vh.activitymanage.validator.CategoryRelationValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -26,6 +27,7 @@ public class CategoryController {
 
     private final ModelMapper mapper;
     private final CategoryService categoryService;
+    private final CategoryRelationValidator categoryRelationValidator;
 
     @GetMapping("/create")
     public String createCategory(Model model){
@@ -62,19 +64,25 @@ public class CategoryController {
     public String deleteCategoryById(@PathVariable Long id){
         log.debug("deleteCategory DeleteMapping");
 
+        if(categoryRelationValidator.validate(id)){
+            return "redirect:/category/all?error=true";
+        }
+
         categoryService.deleteCategoryById(id);
 
         return "redirect:/category/all";
     }
 
-    @GetMapping("/all")
-    public String getAllCategories(Model model){
+    @GetMapping(value = {"/all", "/all?error=true"})
+    public String getAllCategories(Model model, boolean error){
         log.debug("getAllCategories GetMapping");
 
         var categories = categoryService.findAll();
-
         model.addAttribute("categories", mapper.map(categories, CATEGORY_LIST_TYPE));
 
+        if(error) {
+            model.addAttribute("error", "error.delete.category");
+        }
         return "category/allCategory";
     }
 }
