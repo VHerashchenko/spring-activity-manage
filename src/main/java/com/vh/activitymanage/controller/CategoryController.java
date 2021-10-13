@@ -64,16 +64,19 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteCategoryById(@PathVariable Long id){
+    public String deleteCategoryById(@PathVariable Long id, @RequestParam String sort){
         log.debug("deleteCategory DeleteMapping");
 
+
         if(categoryRelationValidator.validate(id)){
-            return "redirect:/category/all?error=true";
+            return sort == null ? "redirect:/category/all?error=true"
+                        : "redirect:/category/all?error=true&sort=" + sort;
         }
 
         categoryService.deleteCategoryById(id);
 
-        return "redirect:/category/all";
+        return sort == null ? "redirect:/category/all"
+                : "redirect:/category/all?sort=" + sort;
     }
 
     @GetMapping("/all")

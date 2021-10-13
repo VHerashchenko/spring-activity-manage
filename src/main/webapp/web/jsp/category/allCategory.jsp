@@ -82,7 +82,7 @@
                                        class="form-signin">
                                 <button class="btn btn btn-primary btn-block" type="submit"><fmt:message key="edit"/></button>
                             </form:form>
-                            <form:form method="DELETE" action="${contextPath}/category/${categories.id}"
+                            <form:form method="DELETE" action="${contextPath}/category/${categories.id}?sort=${param.sort}"
                                    class="form-signin">
                             <button class="btn btn btn-danger btn-block" type="submit"><fmt:message key="delete"/></button>
                             </form:form>

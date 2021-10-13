@@ -45,10 +45,8 @@ public class ActivityUserServiceImpl implements ActivityUserService {
     @Override
     public List<Activity> findAllWithCurrentUser(String nameColumn) {
         var username = getCurrentUsername();
-        if(nameColumn != null){
-            if(!nameColumn.equals("category-name"))
-                return activityUserRepository.findAllByUserUsername(username, Sort.by(Sort.DEFAULT_DIRECTION, nameColumn));
-            return activityUserRepository.findAllByUserUsernameOrderByCategoryNameAsc(username);
+        if(nameColumn != null) {
+            return activityUserRepository.findAllByUserUsername(username, Sort.by(Sort.DEFAULT_DIRECTION, nameColumn));
         }
         return findAllWithCurrentUser();
     }
