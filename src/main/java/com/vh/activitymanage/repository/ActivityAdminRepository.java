@@ -15,4 +15,6 @@ public interface ActivityAdminRepository extends JpaRepository<Activity, Long> {
     void changeActivityStatusById(@Param("id") Long id, @Param("status") ActivityStatus status);
 
     List<Activity> findAllByStatus(ActivityStatus status);
+
+    List<Activity> findAllByCategory_Id(Long id);
 }

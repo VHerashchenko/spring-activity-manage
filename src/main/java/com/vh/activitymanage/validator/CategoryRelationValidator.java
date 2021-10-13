@@ -1,15 +1,15 @@
 package com.vh.activitymanage.validator;
 
-import com.vh.activitymanage.repository.ActivityCategoryValidateRepository;
+import com.vh.activitymanage.repository.ActivityAdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CategoryRelationValidator {
-    ActivityCategoryValidateRepository activityRepository;
+    ActivityAdminRepository activityRepository;
 
     @Autowired
-    public CategoryRelationValidator(ActivityCategoryValidateRepository activityRepository){
+    public CategoryRelationValidator(ActivityAdminRepository activityRepository){
         this.activityRepository = activityRepository;
     }
 

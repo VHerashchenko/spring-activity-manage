@@ -61,4 +61,9 @@ public class AdminServiceImpl implements AdminService {
     public List<Activity> findAllWaitToDelete() {
         return activityAdminRepository.findAllByStatus(ActivityStatus.WAIT_DELETE);
     }
+
+    @Override
+    public List<Activity> findRelationWithCategoryById(Long id) {
+        return activityAdminRepository.findAllByCategory_Id(id);
+    }
 }

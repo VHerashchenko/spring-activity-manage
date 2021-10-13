@@ -22,4 +22,6 @@ public interface AdminService {
     List<Activity> findAllWaitToActive();
 
     List<Activity> findAllWaitToDelete();
+
+    List<Activity> findRelationWithCategoryById(Long id);
 }
