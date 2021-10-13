@@ -6,6 +6,7 @@ import com.vh.activitymanage.service.CategoryService;
 import com.vh.activitymanage.validator.CategoryRelationValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.internal.util.compare.ComparableComparator;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Type;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -73,11 +76,11 @@ public class CategoryController {
         return "redirect:/category/all";
     }
 
-    @GetMapping(value = {"/all", "/all?error=true"})
-    public String getAllCategories(Model model, boolean error){
+    @GetMapping("/all")
+    public String getAllCategories(Model model, boolean error, String sort){
         log.debug("getAllCategories GetMapping");
 
-        var categories = categoryService.findAll();
+        var categories = categoryService.findAll(sort);
         model.addAttribute("categories", mapper.map(categories, CATEGORY_LIST_TYPE));
 
         if(error) {

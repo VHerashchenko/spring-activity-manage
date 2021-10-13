@@ -7,6 +7,7 @@ import com.vh.activitymanage.service.ActivityUserService;
 import com.vh.activitymanage.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,7 +39,21 @@ public class ActivityUserServiceImpl implements ActivityUserService {
 
     @Override
     public List<Activity> findAllWithCurrentUser() {
-        var username = SecurityContextHolder.getContext().getAuthentication().getName();
-        return activityUserRepository.findAllByUserUsername(username);
+        return activityUserRepository.findAllByUserUsername(getCurrentUsername());
+    }
+
+    @Override
+    public List<Activity> findAllWithCurrentUser(String nameColumn) {
+        var username = getCurrentUsername();
+        if(nameColumn != null){
+            if(!nameColumn.equals("category-name"))
+                return activityUserRepository.findAllByUserUsername(username, Sort.by(Sort.DEFAULT_DIRECTION, nameColumn));
+            return activityUserRepository.findAllByUserUsernameOrderByCategoryNameAsc(username);
+        }
+        return findAllWithCurrentUser();
+    }
+
+    private String getCurrentUsername(){
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 }

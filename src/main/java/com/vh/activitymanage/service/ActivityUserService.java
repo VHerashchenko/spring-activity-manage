@@ -13,4 +13,6 @@ public interface ActivityUserService {
     void deleteActivityRequestById(Long id);
 
     List<Activity> findAllWithCurrentUser();
+
+    List<Activity> findAllWithCurrentUser(String nameColumn);
 }

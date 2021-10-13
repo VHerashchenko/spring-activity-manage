@@ -13,4 +13,6 @@ public interface CategoryService {
     void deleteCategoryById(Long id);
 
     List<Category> findAll();
+
+    List<Category> findAll(String nameColumn);
 }

@@ -104,14 +104,14 @@ public class ActivityUserController {
     }
 
     @GetMapping("/all")
-    public String getAllCategories(Model model){
+    public String getAllActivities(Model model, String sort){
         log.debug("getAllActivities GetMapping");
 
         if(bannedUserValidator.validate()) {
             model.addAttribute("errorMessage", "banned.user.message");
         }
 
-        var activities = activityUserService.findAllWithCurrentUser();
+        var activities = activityUserService.findAllWithCurrentUser(sort);
 
         model.addAttribute("activities", mapper.map(activities, ACTIVITY_USER_LIST_TYPE));
 

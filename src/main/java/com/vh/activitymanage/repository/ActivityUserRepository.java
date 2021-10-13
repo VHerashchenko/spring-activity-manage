@@ -2,6 +2,7 @@ package com.vh.activitymanage.repository;
 
 import com.vh.activitymanage.model.entity.Activity;
 import com.vh.activitymanage.model.enums.ActivityStatus;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,4 +16,8 @@ public interface ActivityUserRepository extends JpaRepository<Activity, Long> {
     void changeActivityStatusById(@Param("id") Long id, @Param("status") ActivityStatus status);
 
     List<Activity> findAllByUserUsername(String username);
+
+    List<Activity> findAllByUserUsername(String username, Sort sort);
+
+    List<Activity> findAllByUserUsernameOrderByCategoryNameAsc(String username);
 }

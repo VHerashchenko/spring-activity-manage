@@ -69,7 +69,7 @@
             <table class="table table-bordered table-hover">
                 <thead class="thead-dark">
                 <tr>
-                    <th><fmt:message key="category.name"/></th>
+                    <th><a href="${contextPath}/category/all?sort=name"> <fmt:message key="category.name"/><span class="sr-only"></span></th>
                     <th><fmt:message key="actions"/></th>
                 </tr>
                 </thead>

@@ -4,6 +4,7 @@ import com.vh.activitymanage.model.entity.Category;
 import com.vh.activitymanage.repository.CategoryRepository;
 import com.vh.activitymanage.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,5 +35,13 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<Category> findAll() {
         return categoryRepository.findAll();
+    }
+
+    @Override
+    public List<Category> findAll(String nameColumn) {
+        if(nameColumn != null){
+            return categoryRepository.findAll(Sort.by(Sort.DEFAULT_DIRECTION, nameColumn));
+        }
+        return findAll();
     }
 }

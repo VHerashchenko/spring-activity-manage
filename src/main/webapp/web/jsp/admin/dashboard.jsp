@@ -1,4 +1,3 @@
-<%@ page import="com.vh.activitymanage.model.enums.Role" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
