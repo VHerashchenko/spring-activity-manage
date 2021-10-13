@@ -78,7 +78,7 @@
                     <th><a href="${contextPath}/activity/all?sort=name"> <fmt:message key="activity.name"/><span class="sr-only"></span></th>
                     <th><a href="${contextPath}/activity/all?sort=time"><fmt:message key="activity.time"/><span class="sr-only"></span></th>
                     <th><a href="${contextPath}/activity/all?sort=status"><fmt:message key="activity.status"/><span class="sr-only"></span></th>
-                    <th><a href="${contextPath}/activity/all/?sort=category"><fmt:message key="category.name"/><span class="sr-only"></span></th>
+                    <th><fmt:message key="category.name"/></th>
                     <th><fmt:message key="actions"/></th>
                 </tr>
                 </thead>
