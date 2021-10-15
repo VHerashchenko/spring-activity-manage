@@ -21,13 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserController {
-
     private final UserService regFormService;
-
     private final UserValidator noteValidator;
-
     private final ModelMapper mapper;
-
     private final SecurityService securityService;
 
     @RequestMapping("/welcome")

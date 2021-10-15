@@ -1,5 +1,3 @@
-<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
-<%@ page import="com.vh.activitymanage.model.enums.Permission" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -15,7 +13,7 @@
 <html lang="${param.lang}">
 <head>
     <meta charset="utf-8">
-    <title><fmt:message key="activity.page"/></title>
+    <title><fmt:message key="dashboard.page"/></title>
 
     <link href="${contextPath}/resources/css/bootstrap.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/bootstrap-grid.css" rel="stylesheet">
@@ -36,9 +34,6 @@
             <li class="nav-item active">
                 <a class="nav-link" href="${contextPath}/activity/all"><fmt:message key="activity.page" /> <span class="sr-only"></span></a>
             </li>
-            <%boolean hasUserRole = SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
-                    .anyMatch(r -> r.getAuthority().equalsIgnoreCase(Permission.WRITE.getPermission()));
-                if(hasUserRole) { %>
             <li class="nav-item dropdown">
                 <div class="btn-group">
                     <button type="button" class="btn"><fmt:message key="dashboard.page"/></button>
@@ -53,7 +48,6 @@
                     </div>
                 </div>
             </li>
-            <% } %>
             <li class="nav-item dropdown">
                 <div class="btn-group">
                     <button type="button" class="btn"><fmt:message key="locale" /></button>
@@ -61,8 +55,8 @@
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="${contextPath}/activity/all/?lang=en"><fmt:message key="english" /></a>
-                        <a class="dropdown-item" href="${contextPath}/activity/all/?lang=ru"><fmt:message key="russian" /></a>
+                        <a class="dropdown-item" href="${contextPath}/admin/activity/all/?lang=en"><fmt:message key="english" /></a>
+                        <a class="dropdown-item" href="${contextPath}/admin/activity/all/?lang=ru"><fmt:message key="russian" /></a>
                     </div>
                 </div>
             </li>
@@ -80,28 +74,26 @@
             <table class="table table-bordered table-hover">
                 <thead class="thead-dark">
                 <tr>
-                    <th><a href="${contextPath}/activity/all?sort=name"> <fmt:message key="activity.name"/><span class="sr-only"></span></th>
-                    <th><a href="${contextPath}/activity/all?sort=time"><fmt:message key="activity.time"/><span class="sr-only"></span></th>
-                    <th><a href="${contextPath}/activity/all?sort=status"><fmt:message key="activity.status"/><span class="sr-only"></span></th>
-                    <th><fmt:message key="category.name"/></th>
+                    <th><a href="${contextPath}/admin/activity/all?sort=name"> <fmt:message key="activity.name"/><span class="sr-only"></span></th>
+                    <th><a href="${contextPath}/admin/activity/all?sort=time"><fmt:message key="activity.time"/><span class="sr-only"></span></th>
+                    <th><a href="${contextPath}/admin/activity/all?sort=status"><fmt:message key="activity.status"/><span class="sr-only"></span></th>
+                    <th><a href="${contextPath}/admin/activity/all?sort=creator"><fmt:message key="username"/><span class="sr-only"></span></th>
+                    <th><a href="${contextPath}/admin/activity/all?sort=userCounter"><fmt:message key="counter"/><span class="sr-only"></span></th>
                     <th><fmt:message key="actions"/></th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${activities}" var="activities">
+                <c:forEach items="${activityWaitToActive}" var="activityWaitToActive">
                     <tr>
-                        <td><a href="${contextPath}/activity/${activities.id}">${activities.name}<span class="sr-only"></span></td>
-                        <td>${activities.time}</td>
-                        <td>${activities.status}</td>
-                        <td>${activities.category.name}</td>
+                        <td><a href="${contextPath}/activity/${activityWaitToActive.id}">${activityWaitToActive.name}<span class="sr-only"></span></td>
+                        <td>${activityWaitToActive.time}</td>
+                        <td>${activityWaitToActive.status}</td>
+                        <td>${activityWaitToActive.creator}</td>
+                        <td>${activityWaitToActive.userCounter}</td>
                         <td>
-                            <form:form method="GET" action="${contextPath}/activity/${activities.id}/edit"
+                            <form:form method="DELETE" action="${contextPath}/admin/activity/confirm/${activityWaitToActive.id}/delete"
                                        class="form-signin">
-                                <button class="btn btn btn-primary btn-block" type="submit"><fmt:message key="edit"/></button>
-                            </form:form>
-                            <form:form method="POST" action="${contextPath}/activity/${activities.id}"
-                                   class="form-signin">
-                            <button class="btn btn btn-danger btn-block" type="submit"><fmt:message key="delete"/></button>
+                                <button class="btn btn btn-danger btn-block" type="submit"><fmt:message key="delete"/></button>
                             </form:form>
                         </td>
                     </tr>
@@ -109,21 +101,8 @@
                 </tbody>
             </table>
         </div>
-        <form:form cssClass="col-2 margin-table-view" method="GET" action="${contextPath}/activity/create" class="form-signin">
-            <button class="btn btn btn-success" type="submit"><fmt:message key="create"/></button>
-        </form:form>
     </div>
 </div>
-
-<% if(null != request.getAttribute("errorMessage")){ %>
-<div class="container">
-    <div class="row">
-        <div class="form-group has-error align-content-center">
-            <span class="align-content-center"><fmt:message key="${errorMessage}"/></span>
-        </div>
-    </div>
-</div>
-<%} %>
 
 <script src="${contextPath}/resources/js/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.js"></script>

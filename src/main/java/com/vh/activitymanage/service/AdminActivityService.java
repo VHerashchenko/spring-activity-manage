@@ -14,5 +14,7 @@ public interface AdminActivityService {
 
     Map<String, List<Activity>> findAllWaitingActivities();
 
-    List<Activity> findAllActiveActivities();
+    List<Activity> findAllActivities();
+
+    List<Activity> findAllActivities(String sort);
 }

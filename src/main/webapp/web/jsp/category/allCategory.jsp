@@ -34,11 +34,19 @@
             <li class="nav-item active">
                 <a class="nav-link" href="${contextPath}/activity/all"><fmt:message key="activity.page" /> <span class="sr-only"></span></a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="${contextPath}/category/all"><fmt:message key="category.page" /> <span class="sr-only"></span></a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="${contextPath}/admin/dashboard"><fmt:message key="dashboard.page" /> <span class="sr-only"></span></a>
+            <li class="nav-item dropdown">
+                <div class="btn-group">
+                    <button type="button" class="btn"><fmt:message key="dashboard.page"/></button>
+                    <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="${contextPath}/admin/category/all"><fmt:message key="category.page"/></a>
+                        <a class="dropdown-item" href="${contextPath}/admin/user/all"><fmt:message key="user.page"/></a>
+                        <a class="dropdown-item" href="${contextPath}/admin/activity/confirm"><fmt:message key="confirm.activity"/></a>
+                        <a class="dropdown-item" href="${contextPath}/admin/activity/all"><fmt:message key="activity.page"/></a>
+                    </div>
+                </div>
             </li>
             <li class="nav-item dropdown">
                 <div class="btn-group">
@@ -51,9 +59,6 @@
                         <a class="dropdown-item" href="${contextPath}/category/all/?lang=ru"><fmt:message key="russian" /></a>
                     </div>
                 </div>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="${contextPath}/welcome"><fmt:message key="welcome" /> <span class="sr-only"></span></a>
             </li>
         </ul>
         <form id="logoutForm" method="POST" action="${contextPath}/logout">

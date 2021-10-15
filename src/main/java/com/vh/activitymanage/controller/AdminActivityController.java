@@ -43,6 +43,16 @@ public class AdminActivityController {
         return "admin/confirmActivities";
     }
 
+    @GetMapping("/all")
+    public String getAllActivities(Model model, String sort){
+        log.debug("GetDashboard");
+
+        var allActivities = adminActivityService.findAllActivities(sort);
+        model.addAttribute("activityWaitToActive", mapper.map(allActivities, ACTIVITY_USER_LIST_TYPE));
+
+        return "admin/allActiveActivities";
+    }
+
     @PostMapping("/confirm/{id}/active")
     public String updateActivityStatus(@PathVariable Long id){
         log.debug("Update Activity ACTIVE");

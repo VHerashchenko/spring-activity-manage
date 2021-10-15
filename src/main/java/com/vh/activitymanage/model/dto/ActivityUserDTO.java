@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+import java.util.Set;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -18,13 +21,19 @@ public class ActivityUserDTO {
 
     private Long time;
 
+    private String creator;
+
+    private Integer userCounter;
+
     private ActivityStatus status;
 
-    private UserDTO user;
+    Integer[] usersId;
+
+    private Set<UserDTO> users;
     private CategoryDTO category;
 
-    public ActivityUserDTO(UserDTO user, CategoryDTO category){
-        this.user = user;
+    public ActivityUserDTO(Set<UserDTO> users, CategoryDTO category){
+        this.users = users;
         this.category = category;
     }
 }

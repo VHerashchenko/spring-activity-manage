@@ -25,7 +25,6 @@ import java.util.List;
 @PreAuthorize("hasAuthority('write')")
 @RequestMapping("/admin/user")
 public class AdminUserController {
-
     private static final Type USER_LIST_TYPE = (new TypeToken<List<UserDTO>>(){}).getType();
 
     private final AdminUserService adminUserService;
@@ -36,7 +35,6 @@ public class AdminUserController {
         log.debug("GetAllUsers");
 
         var users = adminUserService.findAllActiveUsers();
-
         model.addAttribute("users", mapper.map(users, USER_LIST_TYPE));
 
         return "admin/users";

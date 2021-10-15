@@ -81,6 +81,16 @@
             </div>
         </spring:bind>
 
+        <spring:bind path="usersId">
+            <div class="form-group ${status.error ? 'has-error' : ''}"> <label for="usersSet">   <fmt:message key="activity.users"/> </label>
+                <form:select multiple="true" path="usersId" id = "usersSet" class="selectpicker" data-show-subtext="true" data-live-search="true">
+                    <c:forEach items="${users}" var="user">
+                        <option value="${user.id}">${user.username}</option>
+                    </c:forEach>
+                </form:select>
+            </div>
+        </spring:bind>
+
 
         <button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message key="submit"/></button>
     </form:form>

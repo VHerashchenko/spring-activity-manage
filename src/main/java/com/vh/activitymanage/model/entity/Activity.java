@@ -1,12 +1,11 @@
 package com.vh.activitymanage.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.vh.activitymanage.model.enums.ActivityStatus;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -32,7 +31,18 @@ public class Activity {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
-    @ManyToOne(cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private String creator;
+
+    @Column(name = "user_count")
+    private Integer userCounter;
+
+    @EqualsAndHashCode.Exclude
+    @ManyToMany
+    @JoinTable(
+            name = "vh_user_activity",
+            joinColumns = {@JoinColumn(name = "activity_id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id")}
+    )
+    @JsonIgnoreProperties("activities")
+    private Set<User> users;
 }

@@ -6,6 +6,7 @@ import com.vh.activitymanage.repository.ActivityAdminRepository;
 import com.vh.activitymanage.repository.AdminUserRepository;
 import com.vh.activitymanage.service.AdminActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,7 +51,15 @@ public class AdminActivityServiceImpl implements AdminActivityService {
     }
 
     @Override
-    public List<Activity> findAllActiveActivities() {
-        return activityAdminRepository.findAllByStatus(ActivityStatus.ACTIVE);
+    public List<Activity> findAllActivities() {
+        return activityAdminRepository.findAll();
+    }
+
+    @Override
+    public List<Activity> findAllActivities(String sort) {
+        if(sort != null){
+            return activityAdminRepository.findAll(Sort.by(Sort.DEFAULT_DIRECTION, sort));
+        }
+        return findAllActivities();
     }
 }

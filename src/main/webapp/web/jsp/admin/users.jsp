@@ -1,5 +1,7 @@
 <%@ page import="com.vh.activitymanage.model.dto.UserDTO" %>
 <%@ page import="java.util.List" %>
+<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
+<%@ page import="com.vh.activitymanage.model.enums.Permission" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -36,12 +38,24 @@
             <li class="nav-item active">
                 <a class="nav-link" href="${contextPath}/activity/all"><fmt:message key="activity.page" /> <span class="sr-only"></span></a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="${contextPath}/category/all"><fmt:message key="category.page" /> <span class="sr-only"></span></a>
+            <%boolean hasUserRole = SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
+                    .anyMatch(r -> r.getAuthority().equalsIgnoreCase(Permission.WRITE.getPermission()));
+                if(hasUserRole) { %>
+            <li class="nav-item dropdown">
+                <div class="btn-group">
+                    <button type="button" class="btn"><fmt:message key="dashboard.page"/></button>
+                    <button type="button" class="btn dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="${contextPath}/admin/category/all"><fmt:message key="category.page"/></a>
+                        <a class="dropdown-item" href="${contextPath}/admin/user/all"><fmt:message key="user.page"/></a>
+                        <a class="dropdown-item" href="${contextPath}/admin/activity/confirm"><fmt:message key="confirm.activity"/></a>
+                        <a class="dropdown-item" href="${contextPath}/admin/activity/all"><fmt:message key="activity.page"/></a>
+                    </div>
+                </div>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="${contextPath}/admin/dashboard"><fmt:message key="dashboard.page" /> <span class="sr-only"></span></a>
-            </li>
+            <% } %>
             <li class="nav-item dropdown">
                 <div class="btn-group">
                     <button type="button" class="btn"><fmt:message key="locale" /></button>
@@ -49,13 +63,10 @@
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="${contextPath}/admin/dashboard/?lang=en"><fmt:message key="english" /></a>
-                        <a class="dropdown-item" href="${contextPath}/admin/dashboard/?lang=ru"><fmt:message key="russian" /></a>
+                        <a class="dropdown-item" href="${contextPath}/admin/user/all/?lang=en"><fmt:message key="english" /></a>
+                        <a class="dropdown-item" href="${contextPath}/admin/user/all/?lang=ru"><fmt:message key="russian" /></a>
                     </div>
                 </div>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="${contextPath}/welcome"><fmt:message key="welcome" /> <span class="sr-only"></span></a>
             </li>
         </ul>
         <form id="logoutForm" method="POST" action="${contextPath}/logout">

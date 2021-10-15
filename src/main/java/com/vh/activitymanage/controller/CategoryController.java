@@ -43,7 +43,6 @@ public class CategoryController {
         log.debug("updateCategory PostMapping");
 
         var category = mapper.map(categoryDTO, Category.class);
-
         categoryService.saveCategory(category);
 
         return "redirect:/admin/category/all";
@@ -54,7 +53,6 @@ public class CategoryController {
         log.debug("editCategory Post");
 
         var category = categoryService.getCategoryById(id);
-
         model.addAttribute("category", mapper.map(category, CategoryDTO.class));
 
         return "category/categoryCreation";
@@ -63,7 +61,6 @@ public class CategoryController {
     @DeleteMapping("/{id}")
     public String deleteCategoryById(@PathVariable Long id, @RequestParam String sort){
         log.debug("deleteCategory DeleteMapping");
-
 
         if(categoryRelationValidator.validate(id)){
             return sort.equals("") ? "redirect:/admin/category/all?error=true"

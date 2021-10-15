@@ -25,9 +25,18 @@ public class ActivityUserServiceImpl implements ActivityUserService {
         return activityUserRepository.getById(id);
     }
 
+    @Override
+    @Transactional
     public Activity saveActivity(Activity activity){
-        activity.setUser(userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
+        activity.setCreator(SecurityContextHolder.getContext().getAuthentication().getName());
+
+        var users = activity.getUsers();
+        users.add(userService.findByUsername(activity.getCreator()));
+        activity.setUsers(users);
+
+        activity.setUserCounter(users.size());
         activity.setStatus(ActivityStatus.WAIT_ACTIVE);
+
         return activityUserRepository.save(activity);
     }
 
@@ -39,14 +48,14 @@ public class ActivityUserServiceImpl implements ActivityUserService {
 
     @Override
     public List<Activity> findAllWithCurrentUser() {
-        return activityUserRepository.findAllByUserUsername(getCurrentUsername());
+        return activityUserRepository.findAllByCreator(getCurrentUsername());
     }
 
     @Override
     public List<Activity> findAllWithCurrentUser(String nameColumn) {
         var username = getCurrentUsername();
         if(nameColumn != null) {
-            return activityUserRepository.findAllByUserUsername(username, Sort.by(Sort.DEFAULT_DIRECTION, nameColumn));
+            return activityUserRepository.findAllByCreator(username, Sort.by(Sort.DEFAULT_DIRECTION, nameColumn));
         }
         return findAllWithCurrentUser();
     }

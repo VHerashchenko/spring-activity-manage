@@ -15,9 +15,7 @@ public interface ActivityUserRepository extends JpaRepository<Activity, Long> {
     @Query(value = "update Activity vha set vha.status = :status where vha.id = :id")
     void changeActivityStatusById(@Param("id") Long id, @Param("status") ActivityStatus status);
 
-    List<Activity> findAllByUserUsername(String username);
+    List<Activity> findAllByCreator(String username);
 
-    List<Activity> findAllByUserUsername(String username, Sort sort);
-
-    List<Activity> findAllByUserUsernameOrderByCategoryNameAsc(String username);
+    List<Activity> findAllByCreator(String username, Sort sort);
 }

@@ -1,14 +1,12 @@
 package com.vh.activitymanage.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.vh.activitymanage.model.enums.Role;
 import com.vh.activitymanage.model.enums.UserStatus;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -37,6 +35,8 @@ public class User {
     @Transient
     private String passwordConfirm;
 
-    @OneToMany(mappedBy = "user", targetEntity = Activity.class)
-    private List<Activity> activities;
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users", targetEntity = Activity.class)
+    @EqualsAndHashCode.Exclude
+    @JsonIgnoreProperties("users")
+    private Set<Activity> activities;
 }

@@ -8,8 +8,11 @@ import com.vh.activitymanage.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Slf4j
@@ -29,8 +32,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> findAllByUsernameNot() {
+        var username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepository.findAllByUsernameNot(username);
+    }
+
+    @Override
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public User findById(Long id) {
+        return userRepository.findById(id).orElse(new User());
     }
 
     @Override
