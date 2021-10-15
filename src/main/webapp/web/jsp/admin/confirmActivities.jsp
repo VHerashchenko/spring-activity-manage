@@ -67,72 +67,6 @@
     <div class="row">
         <div class="col-10">
             <table class="table table-bordered table-hover">
-                <caption><fmt:message key="admin.user.table"/></caption>
-                <thead class="thead-dark">
-                <tr>
-                    <th><fmt:message key="username"/></th>
-                    <th><fmt:message key="user.status"/></th>
-                    <th><fmt:message key="role"/></th>
-                    <th><fmt:message key="actions"/></th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach items="${activeUsers}" var="activeUsers">
-                    <tr>
-                        <td>${activeUsers.username}</td>
-                        <td>${activeUsers.status}</td>
-                        <td>${activeUsers.role}</td>
-                        <td>
-                            <form:form method="POST" action="${contextPath}/admin/dashboard/${activeUsers.id}/ban"
-                                       class="form-signin">
-                                <button class="btn btn btn-danger btn-block" type="submit"><fmt:message key="admin.ban"/></button>
-                            </form:form>
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
-<div class="container" style="margin-top: 55px;">
-    <div class="row">
-        <div class="col-10">
-            <table class="table table-bordered table-hover">
-                <caption><fmt:message key="admin.banned.table"/></caption>
-                <thead class="thead-dark">
-                <tr>
-                    <th><fmt:message key="username"/></th>
-                    <th><fmt:message key="user.status"/></th>
-                    <th><fmt:message key="role"/></th>
-                    <th><fmt:message key="actions"/></th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach items="${bannedUsers}" var="bannedUsers">
-                    <tr>
-                        <td>${bannedUsers.username}</td>
-                        <td>${bannedUsers.status}</td>
-                        <td>${bannedUsers.role}</td>
-                        <td>
-                            <form:form method="POST" action="${contextPath}/admin/dashboard/${bannedUsers.id}/unban"
-                                       class="form-signin">
-                                <button class="btn btn btn-danger btn-block" type="submit"><fmt:message key="admin.unban"/></button>
-                            </form:form>
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
-<div class="container" style="margin-top: 55px;">
-    <div class="row">
-        <div class="col-10">
-            <table class="table table-bordered table-hover">
                 <caption><fmt:message key="admin.wait.active.table"/></caption>
                 <thead class="thead-dark">
                 <tr>
@@ -151,7 +85,7 @@
                         <td>${activityWaitToActive.user.username}</td>
                         <td>${activityWaitToActive.user.status}</td>
                         <td>
-                            <form:form method="POST" action="${contextPath}/admin/dashboard/${activityWaitToActive.id}/active"
+                            <form:form method="POST" action="${contextPath}/admin/activity/confirm/${activityWaitToActive.id}/active"
                                        class="form-signin">
                                 <button class="btn btn btn-danger btn-block" type="submit"><fmt:message key="admin.confirm"/></button>
                             </form:form>
@@ -186,7 +120,7 @@
                         <td>${activityWaitToDelete.user.username}</td>
                         <td>${activityWaitToDelete.user.status}</td>
                         <td>
-                            <form:form method="DELETE" action="${contextPath}/admin/dashboard/${activityWaitToDelete.id}/delete"
+                            <form:form method="DELETE" action="${contextPath}/admin/activity/confirm/${activityWaitToDelete.id}/delete"
                                        class="form-signin">
                                 <button class="btn btn btn-danger btn-block" type="submit"><fmt:message key="delete"/></button>
                             </form:form>

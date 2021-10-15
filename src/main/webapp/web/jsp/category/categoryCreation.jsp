@@ -25,7 +25,7 @@
 
 <div class="container">
 
-    <form:form method="POST" action="${contextPath}/category/update" modelAttribute="category" class="form-signin">
+    <form:form method="POST" action="${contextPath}/admin/category/update" modelAttribute="category" class="form-signin">
         <h2 class="form-signin-heading">
             <%CategoryDTO categoryDTO = (CategoryDTO) request.getAttribute("category");%>
             <%if(categoryDTO.getId() != null){ %>

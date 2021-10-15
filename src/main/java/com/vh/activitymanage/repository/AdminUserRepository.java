@@ -10,10 +10,10 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface UserAdminRepository extends JpaRepository<User, Long> {
+public interface AdminUserRepository extends JpaRepository<User, Long> {
     @Modifying
     @Query(value = "update User u set u.status = :status where u.id = :id")
     void changeUserStatusById(@Param("id") Long id, @Param("status") UserStatus status);
 
-    List<User> findAllUserByRoleAndStatus(@Param("status") Role role, @Param("role") UserStatus status);
+    List<User> findAllUserByRoleOrderByStatus(@Param("role") Role role);
 }

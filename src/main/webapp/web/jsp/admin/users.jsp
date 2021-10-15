@@ -1,3 +1,5 @@
+<%@ page import="com.vh.activitymanage.model.dto.UserDTO" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -13,7 +15,7 @@
 <html lang="${param.lang}">
 <head>
     <meta charset="utf-8">
-    <title><fmt:message key="category.page"/></title>
+    <title><fmt:message key="dashboard.page"/></title>
 
     <link href="${contextPath}/resources/css/bootstrap.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/bootstrap-grid.css" rel="stylesheet">
@@ -47,8 +49,8 @@
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="${contextPath}/category/all/?lang=en"><fmt:message key="english" /></a>
-                        <a class="dropdown-item" href="${contextPath}/category/all/?lang=ru"><fmt:message key="russian" /></a>
+                        <a class="dropdown-item" href="${contextPath}/admin/dashboard/?lang=en"><fmt:message key="english" /></a>
+                        <a class="dropdown-item" href="${contextPath}/admin/dashboard/?lang=ru"><fmt:message key="russian" /></a>
                     </div>
                 </div>
             </li>
@@ -67,46 +69,44 @@
     <div class="row">
         <div class="col-10">
             <table class="table table-bordered table-hover">
+                <caption><fmt:message key="admin.user.table"/></caption>
                 <thead class="thead-dark">
                 <tr>
-                    <th><a href="${contextPath}/admin/category/all?sort=name"> <fmt:message key="category.name"/><span class="sr-only"></span></th>
+                    <th><fmt:message key="username"/></th>
+                    <th><fmt:message key="user.status"/></th>
+                    <th><fmt:message key="role"/></th>
                     <th><fmt:message key="actions"/></th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${categories}" var="categories">
+                <c:forEach items="${users}" var="user">
                     <tr>
-                        <td>${categories.name}</td>
+                        <td>${user.username}</td>
+                        <td>${user.status}</td>
+                        <td>${user.role}</td>
                         <td>
-                            <form:form method="GET" action="${contextPath}/admin/category/${categories.id}/edit/"
-                                       class="form-signin">
-                                <button class="btn btn btn-primary btn-block" type="submit"><fmt:message key="edit"/></button>
-                            </form:form>
-                            <form:form method="DELETE" action="${contextPath}/admin/category/${categories.id}?sort=${param.sort}"
-                                   class="form-signin">
-                            <button class="btn btn btn-danger btn-block" type="submit"><fmt:message key="delete"/></button>
-                            </form:form>
+                            <c:choose>
+                                <c:when test="${user.status =='ACTIVE'}">
+                                    <form:form method="POST" action="${contextPath}/admin/user/${user.id}/ban"
+                                               class="form-signin">
+                                        <button class="btn btn btn-danger btn-block" type="submit"><fmt:message key="admin.ban"/></button>
+                                    </form:form>
+                                </c:when>
+                                <c:otherwise>
+                                    <form:form method="POST" action="${contextPath}/admin/user/${user.id}/unban"
+                                               class="form-signin">
+                                        <button class="btn btn btn-danger btn-block" type="submit"><fmt:message key="admin.unban"/></button>
+                                    </form:form>
+                                </c:otherwise>
+                            </c:choose>
                         </td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
         </div>
-        <form:form cssClass="col-2 margin-table-view" method="GET" action="${contextPath}/admin/category/create" class="form-signin">
-            <button class="btn btn btn-success" type="submit"><fmt:message key="create"/></button>
-        </form:form>
     </div>
 </div>
-
-<% if(null != request.getAttribute("error")){ %>
-<div class="container">
-    <div class="row">
-        <div class="form-group has-error align-content-center">
-            <span class="align-content-center"><fmt:message key="${error}"/></span>
-        </div>
-    </div>
-</div>
-<%} %>
 
 <script src="${contextPath}/resources/js/jquery.min.js"></script>
 <script src="${contextPath}/resources/js/bootstrap.js"></script>

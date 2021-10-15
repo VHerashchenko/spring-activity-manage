@@ -16,5 +16,7 @@ public interface ActivityAdminRepository extends JpaRepository<Activity, Long> {
 
     List<Activity> findAllByStatus(ActivityStatus status);
 
+    List<Activity> findAllByStatusIsNot(ActivityStatus status);
+
     List<Activity> findAllByCategory_Id(Long id);
 }

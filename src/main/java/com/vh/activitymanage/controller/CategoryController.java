@@ -6,7 +6,6 @@ import com.vh.activitymanage.service.CategoryService;
 import com.vh.activitymanage.validator.CategoryRelationValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.internal.util.compare.ComparableComparator;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +15,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Type;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-@RequestMapping("/category")
+@RequestMapping("/admin/category")
 @PreAuthorize("hasAuthority('write')")
 public class CategoryController {
     private static final Type CATEGORY_LIST_TYPE = (new TypeToken<List<CategoryDTO>>(){}).getType();
@@ -49,7 +46,7 @@ public class CategoryController {
 
         categoryService.saveCategory(category);
 
-        return "redirect:/category/all";
+        return "redirect:/admin/category/all";
     }
 
     @GetMapping("/{id}/edit")
@@ -69,14 +66,14 @@ public class CategoryController {
 
 
         if(categoryRelationValidator.validate(id)){
-            return sort == null ? "redirect:/category/all?error=true"
-                        : "redirect:/category/all?error=true&sort=" + sort;
+            return sort.equals("") ? "redirect:/admin/category/all?error=true"
+                    : "redirect:/admin/category/all?error=true&sort=" + sort;
         }
 
         categoryService.deleteCategoryById(id);
 
-        return sort == null ? "redirect:/category/all"
-                : "redirect:/category/all?sort=" + sort;
+        return sort.equals("") ? "redirect:/admin/category/all"
+                : "redirect:/admin/category/all?sort=" + sort;
     }
 
     @GetMapping("/all")
